@@ -3,10 +3,350 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dummy Page</title>
+    <title>Dummy Landing</title>
+    <style>
+      :root {
+        --ink: #0b0b10;
+        --paper: #f8f1e8;
+        --accent: #ff5c35;
+        --accent-2: #1f5cff;
+        --muted: #6b6b76;
+        --glass: rgba(255, 255, 255, 0.65);
+        --shadow: 0 20px 60px rgba(13, 18, 40, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Avenir Next", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 15% 10%, #ffd39d 0%, transparent 45%),
+          radial-gradient(circle at 85% 15%, #a4d7ff 0%, transparent 45%),
+          linear-gradient(180deg, #f8f1e8 0%, #fff7ef 50%, #f7f3ff 100%);
+        min-height: 100vh;
+      }
+
+      .page {
+        padding: 48px 6vw 72px;
+        display: grid;
+        gap: 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 28px;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 5vw, 4.2rem);
+        letter-spacing: -0.02em;
+        margin: 0 0 16px;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: #fff5e8;
+        box-shadow: var(--shadow);
+      }
+
+      .button.secondary {
+        background: var(--glass);
+        color: var(--ink);
+        border: 1px solid rgba(10, 10, 20, 0.15);
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 40px rgba(15, 18, 40, 0.2);
+      }
+
+      .hero-card {
+        background: var(--glass);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: conic-gradient(from 120deg, rgba(255, 92, 53, 0.35), transparent 55%, rgba(31, 92, 255, 0.25));
+        opacity: 0.6;
+      }
+
+      .hero-card > * {
+        position: relative;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .badge span {
+        color: var(--accent);
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.75);
+        padding: 12px 14px;
+        border-radius: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+        margin: 0 0 12px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 12px 24px rgba(14, 18, 40, 0.08);
+        border: 1px solid rgba(10, 10, 20, 0.08);
+      }
+
+      .feature-card h3 {
+        margin: 0 0 8px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 16px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 16px;
+        align-items: start;
+        padding: 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .timeline-item span {
+        font-family: "IBM Plex Mono", "Courier New", monospace;
+        color: var(--accent-2);
+      }
+
+      .cta {
+        background: var(--ink);
+        color: #fff5e8;
+        border-radius: 28px;
+        padding: 32px;
+        display: grid;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .cta p {
+        margin: 0;
+        color: rgba(255, 245, 232, 0.8);
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        animation: rise 0.8s ease forwards;
+      }
+
+      .reveal.delay-1 {
+        animation-delay: 0.1s;
+      }
+
+      .reveal.delay-2 {
+        animation-delay: 0.2s;
+      }
+
+      .reveal.delay-3 {
+        animation-delay: 0.3s;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          padding: 32px 6vw 56px;
+        }
+
+        .timeline-item {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Dummy HTML</h1>
-    <p>This is a placeholder page.</p>
+    <div class="page">
+      <section class="hero reveal">
+        <div>
+          <div class="badge"><span>●</span> launch kit: dummy v1</div>
+          <h1>Make a loud, fast demo page.</h1>
+          <p>
+            A playful single-file mock landing page with bold typography, soft glass panels,
+            and just enough data to feel alive.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#">Start the tour →</a>
+            <a class="button secondary" href="#">Download brief</a>
+          </div>
+        </div>
+        <div class="hero-card reveal delay-1">
+          <h2 class="section-title">Snapshot</h2>
+          <p>Today’s readout for the mythical product dashboard.</p>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>98%</strong>
+              stability score
+            </div>
+            <div class="stat">
+              <strong>12k</strong>
+              daily pings
+            </div>
+            <div class="stat">
+              <strong>4.2s</strong>
+              median glow
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="reveal delay-2">
+        <h2 class="section-title">Dummy features</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Pulse-ready</h3>
+            <p>Designed for standups, demos, and quick internal previews.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Color field</h3>
+            <p>Warm gradients and glowing accents keep the mood confident.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Single file</h3>
+            <p>Drop it anywhere and ship a vibe without a build step.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Responsive</h3>
+            <p>Spacing and layout adapt for phones and wide screens.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="reveal delay-3">
+        <h2 class="section-title">Launch timeline</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span>Day 01</span>
+            <div>
+              <strong>Sketch the idea.</strong>
+              <p>Capture the narrative and decide the demo story arc.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span>Day 02</span>
+            <div>
+              <strong>Style the deck.</strong>
+              <p>Pick palette, type, and gradients that feel intentional.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span>Day 03</span>
+            <div>
+              <strong>Share the build.</strong>
+              <p>Send the link and gather feedback with zero friction.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta reveal delay-2">
+        <div>
+          <h2 class="section-title">Ship the demo</h2>
+          <p>Replace the copy later. The structure is already ready for a real launch.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button secondary" href="#">Open docs</a>
+          <a class="button primary" href="#">Publish now</a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Dummy Landing · 2026</span>
+        <span>Made for quick previews and testing loops.</span>
+      </footer>
+    </div>
   </body>
 </html>
