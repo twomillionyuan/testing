@@ -8,7 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5173;
+const host = process.env.HOST || "127.0.0.1";
 const dataPath = path.join(__dirname, "data.json");
 
 const state = {
@@ -164,8 +165,8 @@ app.get("*", (req, res) => {
 
 loadData()
   .then(() => {
-    app.listen(port, () => {
-      console.log(`Focus planner running on ${port}`);
+    app.listen(port, host, () => {
+      console.log(`Focus planner running on http://${host}:${port}`);
     });
   })
   .catch((error) => {
